@@ -1,6 +1,8 @@
 const http = require("http");
 const url = require("url");
 const fs = require("fs");
+const excelToJson = require("convert-excel-to-json");
+const csvToJson = require('convert-csv-to-json');
 
 const tempLanding = fs.readFileSync(
   `${__dirname}/templates/template-landing.html`,
@@ -10,10 +12,41 @@ const tempCard = fs.readFileSync(
   `${__dirname}/templates/template-card.html`,
   "utf-8"
 );
+process.argv.forEach(function (val, index, array) {
+  console.log(index + ': ' + val);
+});
 
-let jsonData = fs.readFileSync(`${__dirname}/data/data.json`, "utf-8");
 
-let players = JSON.parse(jsonData);
+const jsonData = fs.readFileSync(`${__dirname}/data/data.json`, "utf-8");
+    let players2 = JSON.parse(jsonData);
+
+const args = process.argv.slice(2)
+let inputFileName = `${__dirname}/data/players.csv`; 
+if (Array.isArray(args) && args.length) {
+  if (args[0] == "json") {
+    const jsonData = fs.readFileSync(`${__dirname}/data/data.json`, "utf-8");
+    let players = JSON.parse(jsonData);
+  } else if (args[0] == "excel") {
+    const result = excelToJson({
+      sourceFile: `${__dirname}/data/players.xlsx`,
+      header:{
+        rows: 1
+      },
+      columnToKey: {
+        A: 'id',
+        B: 'Name',
+        C: 'score'
+      }
+    });
+    players = result["Sheet1"];
+  }
+} else {
+  players = csvToJson.fieldDelimiter(',') .getJsonFromCsv(inputFileName);
+
+}
+
+
+
 
 var scores = new Set(
   Object.keys(players).map(function (key) {
@@ -45,6 +78,8 @@ const replaceTemplate = (template, participant) => {
   const first = "🥇";
   const second = "🥈";
   const third = "🥉";
+  const other = "🌼";
+
   let output = template.replace(/{%NAME%}/g, participant.Name);
   output = output.replace(/{%SCORE%}/g, participant.score);
   switch (participant.rank) {
@@ -58,7 +93,7 @@ const replaceTemplate = (template, participant) => {
       output = output.replace(/{%IMAGE%}/g, third);
       break;
     default:
-      output = output.replace(/{%IMAGE%}/g, participant.image);
+      output = output.replace(/{%IMAGE%}/g, other);
   }
 
   return output;

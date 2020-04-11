@@ -13,5 +13,9 @@
     "quiz"
   ],
   "author": "Shankar Balakrishna",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "convert-csv-to-json": "0.0.15",
+    "convert-excel-to-json": "^1.6.1"
+  }
 }
