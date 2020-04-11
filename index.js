@@ -1,6 +1,7 @@
 const http = require("http");
 const url = require("url");
 const fs = require("fs");
+const excelToJson = require("convert-excel-to-json");
 
 const tempLanding = fs.readFileSync(
   `${__dirname}/templates/template-landing.html`,
@@ -10,10 +11,34 @@ const tempCard = fs.readFileSync(
   `${__dirname}/templates/template-card.html`,
   "utf-8"
 );
+process.argv.forEach(function (val, index, array) {
+  console.log(index + ': ' + val);
+});
 
-let jsonData = fs.readFileSync(`${__dirname}/data/data.json`, "utf-8");
+const args = process.argv.slice(2)
 
-let players = JSON.parse(jsonData);
+if (Array.isArray(args) && args.length) {
+  if (args[0] == "json") {
+    const jsonData = fs.readFileSync(`${__dirname}/data/data.json`, "utf-8");
+    let players = JSON.parse(jsonData);
+  }
+} else {
+  const result = excelToJson({
+    sourceFile: `${__dirname}/data/players.xlsx`,
+    header:{
+      rows: 1
+    },
+    columnToKey: {
+      A: 'id',
+      B: 'Name',
+      C: 'score'
+    }
+  });
+  players = result["Sheet1"];
+}
+
+
+
 
 var scores = new Set(
   Object.keys(players).map(function (key) {
