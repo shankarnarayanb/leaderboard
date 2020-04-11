@@ -45,6 +45,8 @@ const replaceTemplate = (template, participant) => {
   const first = "🥇";
   const second = "🥈";
   const third = "🥉";
+  const other = "🌼";
+
   let output = template.replace(/{%NAME%}/g, participant.Name);
   output = output.replace(/{%SCORE%}/g, participant.score);
   switch (participant.rank) {
@@ -58,7 +60,7 @@ const replaceTemplate = (template, participant) => {
       output = output.replace(/{%IMAGE%}/g, third);
       break;
     default:
-      output = output.replace(/{%IMAGE%}/g, participant.image);
+      output = output.replace(/{%IMAGE%}/g, other);
   }
 
   return output;
