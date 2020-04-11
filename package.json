@@ -1,0 +1,17 @@
+{
+  "name": "leaderboard",
+  "version": "1.0.0",
+  "description": "A simple node leaderboard for a weekly quiz ",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no tests specified \" && exit 1"
+  },
+  "keywords": [
+    "leaderboard",
+    "node",
+    "quiz"
+  ],
+  "author": "Shankar Balakrishna",
+  "license": "ISC"
+}

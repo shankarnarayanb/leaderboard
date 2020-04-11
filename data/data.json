@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "Name": "Shankar Balakrishna",
+    "image": "🌼",
+    "score": 5
+  },
+  {
+    "id": 2,
+    "Name": "Peter Schuebl",
+    "image": "🌼",
+    "score": 3
+  }, {
+    "id": 3,
+    "Name": "Deepak Munjral",
+    "image": "🌼",
+    "score": 4
+  }, {
+    "id": 4,
+    "Name": "Vivek Tiwari",
+    "image": "🌼",
+    "score": 2
+  }, {
+    "id": 5,
+    "Name": "Deepak Arya",
+    "image": "🌼",
+    "score": 2
+  }, {
+    "id": 6,
+    "Name": "Nidhi Talwar",
+    "image": "🌼",
+    "score": 3
+  }
+
+]
